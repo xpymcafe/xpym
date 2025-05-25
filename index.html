@@ -3,12 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
   <title>Кав'ярня Хрум</title>
   <style>
     :root {
       --accent: #e5c79a;
-      --bg: #4e4539;
-      --text: #f9e7d2;
+      --bg1: #4e4539;
+      --bg2: #a37840;
+      --text: #ffc77a;
       --desc: #e5c79a;
     }
 
@@ -19,11 +26,12 @@
     }
 
     body {
-      background-color: var(--bg);
-      font-family: sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      font-family: 'Inter', sans-serif;
       color: var(--text);
       text-align: center;
       padding: 4vh 5vw;
+      min-height: 100vh;
     }
 
     .logo {
@@ -32,12 +40,41 @@
       height: 30vw;
       max-height: 120px;
       border-radius: 50%;
+      position: relative;
       overflow: hidden;
-      margin: 0 auto 4vh auto;
-      border: 2px solid var(--accent);
+      margin: 0 auto 1vh auto;
+      border: 4px solid #ffc77a;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .logo::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        rgba(242, 200, 155, 0) 30%,
+        rgba(242, 200, 155, 0.6) 50%,
+        rgba(242, 200, 155, 0) 70%
+      );
+      transform: rotate(25deg);
+      animation: shine 3s linear 1 forwards;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @keyframes shine {
+      0% {
+        transform: translateX(-100%) rotate(25deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(25deg);
+      }
     }
 
     .logo img {
@@ -47,14 +84,36 @@
     }
 
     h1 {
-      font-size: 5vw;
-      margin-bottom: 2vh;
+      font-size: 7vw;
+      margin-bottom: 1vh;
+      font-family: "Shantell Sans", cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 3vh;
+      margin-bottom: 3vh;
+    }
+
+    .socials a img {
+      width: 40px;
+      height: 40px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.2s;
+    }
+
+    .socials a:hover img {
+      transform: scale(1.1);
     }
 
     .slider {
       width: 100%;
       max-width: 450px;
-      margin: 2vh auto;
+      margin: 2vh auto 4vh;
       border-radius: 12px;
       overflow: hidden;
       position: relative;
@@ -62,7 +121,7 @@
     }
 
     .slides {
-      height: 200px;
+      height: 250px;
       display: flex;
       transition: transform 0.5s ease-in-out;
       justify-content: flex-start;
@@ -70,13 +129,39 @@
     }
 
     .slide {
+      position: relative;
       flex: 0 0 100%;
+      overflow: hidden;
     }
 
     .slide img {
       width: 100%;
       height: auto;
       display: block;
+    }
+
+    .promo-desc {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -100%;
+      width: 40%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--desc);
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+      font-size: 1rem;
+      font-family: "Shantell Sans", cursive;
+      transition: right 0.5s ease-in-out;
+      text-align: right;
+      z-index: 1;
+    }
+
+    .slide.active .promo-desc {
+      right: 0;
     }
 
     .navigation-manual {
@@ -86,6 +171,7 @@
       display: flex;
       justify-content: center;
       gap: 10px;
+      z-index: 2;
     }
 
     .manual-btn {
@@ -103,20 +189,21 @@
     }
 
     .desc {
-      margin: 4vh 0 2vh 0;
+      margin: 0vh 0 3vh 0;
       font-size: 1rem;
       color: var(--desc);
     }
 
     .button {
       background-color: #f0d9b5;
-      color: var(--bg);
+      color: var(--bg1);
       padding: 1rem;
       margin: 1vh auto;
       width: 90%;
       max-width: 450px;
       border: none;
       border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
       font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
@@ -130,9 +217,15 @@
       transform: scale(1.03);
     }
 
+    .manual-btn.active {
+      transform: scale(1.5);
+      background-color: var(--accent);
+    }
+
     .footer {
       margin-top: 5vh;
-      color: #aaa;
+      padding: 1rem;
+      color: var(--text);
       font-size: 0.75rem;
     }
 
@@ -153,15 +246,33 @@
 </head>
 <body>
   <div class="logo">
-    <img src="img/logo.jpg" alt="Логотип" />
+    <img src="img/logo.png" alt="Логотип" />
   </div>
+
   <h1>Кава. Десерт. Спокій.</h1>
+
+<!-- Social blocks (for future development)
+  <div class="socials">
+    <a href="https://instagram.com"><img src="img/icons/instagram.svg" alt="Instagram"></a>
+    <a href="https://www.threads.net/"><img src="img/icons/threads.svg" alt="Threads"></a>
+    <a href="https://maps.google.com"><img src="img/icons/maps.svg" alt="Google Maps"></a>
+  </div>
+-->
 
   <div class="slider">
     <div class="slides" id="slides">
-      <div class="slide"><img src="img/promo/1.jpg" alt="Промо 1" /></div>
-      <div class="slide"><img src="img/promo/2.jpg" alt="Промо 2" /></div>
-      <div class="slide"><img src="img/promo/3.jpg" alt="Промо 3" /></div>
+      <div class="slide">
+        <div class="promo-desc">Літні напої вже чекають. Спробуй!</div>
+        <img src="img/promo/1.jpg" alt="Промо 1" />
+      </div>
+      <div class="slide">
+        <div class="promo-desc">Донат не врятує світ, але настрій точно!</div>
+        <img src="img/promo/2.jpg" alt="Промо 2" />
+      </div>
+      <div class="slide">
+        <div class="promo-desc">Бабл Ті чи Мілкшейк? Обери свого фаворита!</div>
+        <img src="img/promo/3.jpg" alt="Промо 3" />
+      </div>
     </div>
     <div class="navigation-manual">
       <span class="manual-btn" onclick="manualSlide(0)"></span>
@@ -170,13 +281,29 @@
     </div>
   </div>
 
-  <p class="desc">Це текст для короткого опису акцій і т.п.</p>
+<!-- Info block (for future development)
+  <p class="desc">Usefull info</p>
+-->
 
-  <a href="https://instagram.com" class="button" onclick="trackClick('instagram')">Instagram</a>
-  <a href="https://menu.example.com" class="button" onclick="trackClick('menu')">Наше меню</a>
-  <a href="https://maps.example.com" class="button" onclick="trackClick('map')">Як нас знайти</a>
+  <a href="https://drive.google.com/file/d/1_r0ixG7VhhLoXgADZXxzPmQ52zjSRknv/view?usp=sharing" class="button" onclick="trackClick('menu')">
+    <img src="img/icons/menu.svg" alt="" style="width: 20px; height: 20px; margin-left: 0px; vertical-align: middle;">
+    Наше меню
+  </a>
+  <a href="https://www.instagram.com/xpym_cafe/" class="button" onclick="trackClick('instagram')">
+    <img src="img/icons/instagram.svg" alt="" style="width: 18px; height: 18px; margin-left: 0px; vertical-align: middle;">
+    Instagram
+  </a>
+  <a href="https://forms.gle/DUmtgwnLFZgQq7wb7" class="button" onclick="trackClick('feedback')">
+    <img src="img/icons/feedback.svg" alt="" style="width: 20px; height: 20px; margin-left: 0px; vertical-align: middle;">
+    Залишити відгук
+  </a>
 
-  <div class="footer">© Хрум</div>
+<!--
+  <a href="https://drive.google.com/file/d/1_r0ixG7VhhLoXgADZXxzPmQ52zjSRknv/view?usp=sharing" class="button" onclick="trackClick('menu')">Наше меню</a>
+  <a href="https://forms.gle/DUmtgwnLFZgQq7wb7" class="button" onclick="trackClick('feedback')">Залишити відгук</a>
+  -->
+
+  <div class="footer">P.S. слідкуй за акціями в нашому Instagram! 🤫 <br> Твій © Хрум</div>
 
   <script>
     function trackClick(key) {
@@ -184,8 +311,49 @@
     }
 
     const slides = document.getElementById("slides");
+    const nav = document.querySelector(".navigation-manual");
     let currentSlide = 0;
     const totalSlides = slides.children.length;
+
+
+    let startX = 0;
+    let endX = 0;
+
+    slides.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    }, {passive: true});
+
+    slides.addEventListener('touchmove', e => {
+      endX = e.touches[0].clientX;
+    }, {passive: true});
+
+    slides.addEventListener('touchend', e => {
+      let diffX = endX - startX;
+      const threshold = 50;
+
+      if (Math.abs(diffX) > threshold) {
+        if (diffX > 0) {
+          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        } else {
+          currentSlide = (currentSlide + 1) % totalSlides;
+        }
+        updateSlider();
+      }
+
+      startX = 0;
+      endX = 0;
+    });
+
+
+    function createDots() {
+      nav.innerHTML = "";
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("manual-btn");
+        dot.addEventListener("click", () => manualSlide(i));
+        nav.appendChild(dot);
+      }
+    }
 
     function manualSlide(index) {
       currentSlide = index;
@@ -194,40 +362,26 @@
 
     function updateSlider() {
       slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+      const allSlides = slides.querySelectorAll('.slide');
+      allSlides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+
+      const dots = nav.querySelectorAll('.manual-btn');
+      dots.forEach((dot, index) => {
+        dot.style.transform = index === currentSlide ? 'scale(1.6)' : 'scale(1)';
+        dot.style.backgroundColor = index === currentSlide ? 'var(--accent)' : 'transparent';
+      });
     }
-
-    let startX = 0;
-    let isSwiping = false;
-    
-    slides.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isSwiping = true;
-    });
-    
-    slides.addEventListener('touchmove', (e) => {
-      if (!isSwiping) return;
-      const deltaX = e.touches[0].clientX - startX;
-      
-      if (Math.abs(deltaX) > 50) {
-        if (deltaX > 0 && currentSlide > 0) {
-          currentSlide--;
-        } else if (deltaX < 0 && currentSlide < totalSlides - 1) {
-          currentSlide++;
-        }
-        updateSlider();
-        isSwiping = false;
-      }
-    });
-    
-    slides.addEventListener('touchend', () => {
-      isSwiping = false;
-    });
-
 
     setInterval(() => {
       currentSlide = (currentSlide + 1) % totalSlides;
       updateSlider();
     }, 7000);
+
+    createDots();
+    updateSlider();
   </script>
 </body>
 </html>
