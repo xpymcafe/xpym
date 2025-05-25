@@ -207,8 +207,7 @@
     slides.addEventListener('touchmove', (e) => {
       if (!isSwiping) return;
       const deltaX = e.touches[0].clientX - startX;
-    
-      // Не прокручуємо занадто сильно
+      
       if (Math.abs(deltaX) > 50) {
         if (deltaX > 0 && currentSlide > 0) {
           currentSlide--;
@@ -216,7 +215,7 @@
           currentSlide++;
         }
         updateSlider();
-        isSwiping = false; // Щоб свайп спрацьовував один раз
+        isSwiping = false;
       }
     });
     
