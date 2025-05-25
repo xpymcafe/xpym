@@ -196,6 +196,35 @@
       slides.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
+    let startX = 0;
+    let isSwiping = false;
+    
+    slides.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isSwiping = true;
+    });
+    
+    slides.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      const deltaX = e.touches[0].clientX - startX;
+    
+      // Не прокручуємо занадто сильно
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0 && currentSlide > 0) {
+          currentSlide--;
+        } else if (deltaX < 0 && currentSlide < totalSlides - 1) {
+          currentSlide++;
+        }
+        updateSlider();
+        isSwiping = false; // Щоб свайп спрацьовував один раз
+      }
+    });
+    
+    slides.addEventListener('touchend', () => {
+      isSwiping = false;
+    });
+
+
     setInterval(() => {
       currentSlide = (currentSlide + 1) % totalSlides;
       updateSlider();
